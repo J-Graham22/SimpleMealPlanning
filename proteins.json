@@ -1,0 +1,12 @@
+{
+  "proteins": [
+    {
+      "name": "Grilled Chicken Breast",
+      "recipe": "Put da chicken on da grill"
+    },
+    {
+      "name": "Steak",
+      "recipe": "Put da steak on da grill"
+    }
+  ]
+}
