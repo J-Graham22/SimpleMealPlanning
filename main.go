@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"net/http"
 	"os"
 )
 
@@ -40,4 +41,8 @@ func main() {
 		log.Printf("name: %s\n", p.Name)
 		log.Printf("recipe: %s\n", p.Recipe)
 	}
+}
+
+func hello(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "hello, world\n")
 }
