@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"log"
@@ -41,8 +42,11 @@ func main() {
 		log.Printf("name: %s\n", p.Name)
 		log.Printf("recipe: %s\n", p.Recipe)
 	}
+
 }
 
-func hello(w http.ResponseWriter, r *http.Request) {
+func sayHello(w http.ResponseWriter, r *http.Request) {
+	component := hello("justin")
+	component.Render(context.Background(), os.Stdout)
 	fmt.Fprintf(w, "hello, world\n")
 }
