@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"github.com/a-h/templ"
 )
 
 type MealPart struct {
@@ -43,6 +44,17 @@ func main() {
 		log.Printf("recipe: %s\n", p.Recipe)
 	}
 
+	r := http.NewServeMux()
+
+	component := hello("Justin")
+	r.Handle("/", templ.Handler(component))
+
+	server := http.Server{
+		Addr: ":3000",
+		Handler: r,
+	}
+	fmt.Println("Listening on :3000")
+	server.ListenAndServe()
 }
 
 func sayHello(w http.ResponseWriter, r *http.Request) {
