@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
@@ -10,34 +9,11 @@ import (
 	"github.com/a-h/templ"
 )
 
-type MealPart struct {
-	Name   string `json: "name"`
-	Recipe string `json: "recipe"`
-}
-
-type Proteins struct {
-	Proteins []MealPart `json: "proteins"`
-}
-
-type Meal struct {
-	protein   MealPart
-	side      MealPart
-	vegetable MealPart
-}
 
 func main() {
 	fmt.Println("Hello World!")
 
-	content, err := os.ReadFile("./proteins.json")
-	if err != nil {
-		log.Fatal("Error opening proteins json")
-	}
-
-	var proteins Proteins
-	err = json.Unmarshal(content, &proteins)
-	if err != nil {
-		log.Fatal("Error parsing content")
-	}
+	proteins := getMealParts()
 
 	for _, p := range proteins.Proteins {
 		log.Printf("name: %s\n", p.Name)
@@ -61,4 +37,8 @@ func sayHello(w http.ResponseWriter, r *http.Request) {
 	component := hello("justin")
 	component.Render(context.Background(), os.Stdout)
 	fmt.Fprintf(w, "hello, world\n")
+}
+
+func generateWeeklyMealPlan(w http.ResponseWriter, r *http.Request) {
+
 }
