@@ -1,14 +1,13 @@
 package main
 
 import (
-	"context"
+	_ "context"
 	"fmt"
+	"github.com/a-h/templ"
 	"log"
 	"net/http"
-	"os"
-	"github.com/a-h/templ"
+	_ "os"
 )
-
 
 func main() {
 	fmt.Println("Hello World!")
@@ -22,11 +21,11 @@ func main() {
 
 	r := http.NewServeMux()
 
-	component := hello("Justin")
+	component := plan()
 	r.Handle("/", templ.Handler(component))
 
 	server := http.Server{
-		Addr: ":3000",
+		Addr:    ":3000",
 		Handler: r,
 	}
 	fmt.Println("Listening on :3000")
@@ -34,8 +33,6 @@ func main() {
 }
 
 func sayHello(w http.ResponseWriter, r *http.Request) {
-	component := hello("justin")
-	component.Render(context.Background(), os.Stdout)
 	fmt.Fprintf(w, "hello, world\n")
 }
 

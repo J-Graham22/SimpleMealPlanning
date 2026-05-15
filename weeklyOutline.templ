@@ -1,0 +1,29 @@
+package main
+
+func getDays() []string {
+	days := []string{"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"}
+	return days
+}
+
+templ plan() {
+	{{ days := getDays() }}
+
+	<div class="max-w-xl mx-auto rounded-lg border border-gray-300 overflow-hidden shadow">
+		<div class="grid grid-cols-2 bg-gray-100 font-bold text-gray-800">
+			<div class="p-4 border-b border-r">Day</div>
+			<div class="p-4 border-b">Meal</div>
+		</div>
+
+		for _, item := range days {
+			<div class="grid grid-cols-2">
+				<div class="p-4 border-b border-r">
+					{ item }
+				</div>
+
+				<div class="p-4 border-b">
+					Meal goes here...
+				</div>
+			</div>
+		}
+	</div>
+}
