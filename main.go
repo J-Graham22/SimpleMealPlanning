@@ -12,6 +12,8 @@ import (
 func main() {
 	fmt.Println("Hello World!")
 
+	//_dbClient := setupMongoDBConnection()
+
 	proteins := getMealParts()
 
 	for _, p := range proteins.Proteins {
