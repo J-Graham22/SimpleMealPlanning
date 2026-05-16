@@ -1,16 +1,17 @@
 package main
 
 import (
+	"context"
 	"encoding/json"
 	"log"
 	"os"
 
-	_ "go.mongodb.org/mongo-driver/v2/bson"
+	"go.mongodb.org/mongo-driver/v2/bson"
 	"go.mongodb.org/mongo-driver/v2/mongo"
 	"go.mongodb.org/mongo-driver/v2/mongo/options"
 )
 
-func setupMongoDBConnection() *mongo.Client {
+func setupMongoDBConnection() *mongo.Database {
 	uri := os.Getenv("MONGODB_URI") //Needs to be set up as an environment variable
 
 	if uri == "" {
@@ -22,7 +23,26 @@ func setupMongoDBConnection() *mongo.Client {
 		panic(err)
 	}
 
-	return dbClient
+	database := dbClient.Database("mealplanning")
+
+	return database
+}
+
+func getAllProteins(db *mongo.Database) {
+	coll := db.Collection("proteins")
+
+	filter := bson.D{}
+	sort := bson.D{}
+	opts := options.Find().SetSort(sort)
+
+	proteins, err := coll.Find(context.TODO(), filter, opts)
+	if err != nil {
+		panic(err)
+	}
+
+	//TODO: decode proteins
+
+	return proteins
 }
 
 func getMealParts() Proteins {
